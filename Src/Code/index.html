@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Водоканал - Учет оплат</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2196F3;
+            --light: #f8f9fa;
+            --dark: #333;
+            --gray: #666;
+            --border: #ddd;
+            --shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: var(--dark);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--gray);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background: #1976D2;
+        }
+        
+        .demo-info {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .avatar {
+            width: 35px;
+            height: 35px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background: var(--light);
+        }
+        
+        .nav-item.active {
+            background: var(--light);
+            border-left-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .page-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: var(--light);
+            font-weight: bold;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            
+            .nav-item span {
+                display: none;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="login-header">
+                <h1><i class="fas fa-tint"></i> Водоканал</h1>
+                <p>Учет оплаты услуг водоснабжения</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Имя пользователя</label>
+                    <input type="text" id="username" class="form-control" placeholder="Введите логин" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="password" class="form-control" placeholder="Введите пароль" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+            
+            <div class="demo-info">
+                <p><strong>Демо-доступ:</strong></p>
+                <p>Логин: admin | Пароль: admin123</p>
+                <p>Логин: operator | Пароль: operator123</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="appContainer" class="app-container hidden">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h2>Водоканал</h2>
+            </div>
+            
+            <div class="user-info">
+                <div id="userName">Администратор</div>
+                <div class="avatar" id="userAvatar">А</div>
+                <button class="btn btn-outline btn-sm" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <nav class="sidebar">
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </div>
+                
+                <div class="nav-item" data-page="clients">
+                    <i class="fas fa-users"></i>
+                    <span>Клиенты</span>
+                </div>
+                
+                <div class="nav-item" data-page="payments">
+                    <i class="fas fa-money-bill"></i>
+                    <span>Платежи</span>
+                </div>
+                
+                <div class="nav-item" data-page="services">
+                    <i class="fas fa-tint"></i>
+                    <span>Услуги</span>
+                </div>
+                
+                <div class="nav-item" data-page="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Отчеты</span>
+                </div>
+            </nav>
+
+            <main class="page-content">
+                <div id="dashboardPage" class="page active">
+                    <h1 class="page-title">Главная панель</h1>
+                    
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-value">1,248</div>
+                            <div class="stat-label">Всего клиентов</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">4,892</div>
+                            <div class="stat-label">Всего платежей</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">12.5 млн ₽</div>
+                            <div class="stat-label">Общая сумма</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">248</div>
+                            <div class="stat-label">Задолженности</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Последние платежи</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Клиент</th>
+                                    <th>Сумма</th>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentPayments">
+                                <!-- Данные загружаются JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="clientsPage" class="page">
+                    <h1 class="page-title">Клиенты</h1>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Список клиентов</h3>
+                        <div style="margin-bottom: 15px;">
+                            <button class="btn btn-primary" onclick="showAddClient()">
+                                <i class="fas fa-plus"></i> Добавить клиента
+                            </button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ФИО / Название</th>
+                                    <th>Тип</th>
+                                    <th>Телефон</th>
+                                    <th>Баланс</th>
+                                    <th>Статус</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientsTable">
+                                <!-- Данные загружаются JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="paymentsPage" class="page">
+                    <h1 class="page-title">Платежи</h1>
+                    
+                    <div class="card">
+                        <h3 class="card-title">История платежей</h3>
+                        <div style="margin-bottom: 15px;">
+                            <button class="btn btn-primary" onclick="showAddPayment()">
+                                <i class="fas fa-plus"></i> Добавить платеж
+                            </button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Клиент</th>
+                                    <th>Услуга</th>
+                                    <th>Сумма</th>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTable">
+                                <!-- Данные загружаются JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="servicesPage" class="page">
+                    <h1 class="page-title">Услуги</h1>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Тарифы на услуги</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Услуга</th>
+                                    <th>Тариф</th>
+                                    <th>Единица</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody id="servicesTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="reportsPage" class="page">
+                    <h1 class="page-title">Отчеты</h1>
+                    
+                    <div class="card">
+                        <h3 class="card-title">Генерация отчетов</h3>
+                        <div style="margin-bottom: 15px;">
+                            <div class="form-group">
+                                <label>Период отчета</label>
+                                <select class="form-control">
+                                    <option>Текущий месяц</option>
+                                    <option>Последние 3 месяца</option>
+                                    <option>Текущий год</option>
+                                    <option>Произвольный период</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-download"></i> Скачать отчет
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="addClientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить клиента</h3>
+                <button onclick="hideModal('addClientModal')" style="background:none; border:none; font-size:20px; cursor:pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label>Тип клиента</label>
+                <select id="clientType" class="form-control">
+                    <option>Физическое лицо</option>
+                    <option>Юридическое лицо</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>ФИО / Название</label>
+                <input type="text" id="clientName" class="form-control" placeholder="Иванов Иван Иванович">
+            </div>
+            
+            <div class="form-group">
+                <label>Телефон</label>
+                <input type="tel" id="clientPhone" class="form-control" placeholder="+7 (999) 123-45-67">
+            </div>
+            
+            <div class="form-group">
+                <label>Адрес</label>
+                <input type="text" id="clientAddress" class="form-control" placeholder="г. Москва, ул. Примерная, д. 1">
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="hideModal('addClientModal')">Отмена</button>
+                <button class="btn btn-primary" onclick="saveClient()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addPaymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить платеж</h3>
+                <button onclick="hideModal('addPaymentModal')" style="background:none; border:none; font-size:20px; cursor:pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label>Клиент</label>
+                <select id="paymentClient" class="form-control">
+                    <option value="">Выберите клиента</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Сумма (₽)</label>
+                <input type="number" id="paymentAmount" class="form-control" placeholder="1000.00">
+            </div>
+            
+            <div class="form-group">
+                <label>Период</label>
+                <input type="month" id="paymentPeriod" class="form-control">
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="hideModal('addPaymentModal')">Отмена</button>
+                <button class="btn btn-primary" onclick="savePayment()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let demoData = {
+            clients: [
+                {id: 1, name: 'Иванов Иван Иванович', type: 'Физическое лицо', phone: '+7 (999) 123-45-67', balance: 1500, status: 'Активен'},
+                {id: 2, name: 'Петров Петр Петрович', type: 'Физическое лицо', phone: '+7 (999) 234-56-78', balance: 3200, status: 'Активен'},
+                {id: 3, name: 'ООО "АкваСервис"', type: 'Юридическое лицо', phone: '+7 (495) 123-45-67', balance: 12500, status: 'Активен'},
+                {id: 4, name: 'Сидорова Анна Владимировна', type: 'Физическое лицо', phone: '+7 (999) 345-67-89', balance: -3500, status: 'Задолженность'}
+            ],
+            payments: [
+                {id: 1, client: 'Иванов Иван Иванович', service: 'Холодная вода', amount: 1500, date: '2024-01-15', status: 'Оплачен'},
+                {id: 2, client: 'Петров Петр Петрович', service: 'Горячая вода', amount: 3200, date: '2024-01-20', status: 'Оплачен'},
+                {id: 3, client: 'ООО "АкваСервис"', service: 'Водоотведение', amount: 12500, date: '2024-01-25', status: 'Оплачен'},
+                {id: 4, client: 'Иванов Иван Иванович', service: 'Холодная вода', amount: 1800, date: '2024-02-10', status: 'Оплачен'}
+            ],
+            services: [
+                {id: 1, name: 'Холодное водоснабжение', price: '45.50 ₽', unit: 'за 1 м³', status: 'Активна'},
+                {id: 2, name: 'Горячее водоснабжение', price: '210.30 ₽', unit: 'за 1 м³', status: 'Активна'},
+                {id: 3, name: 'Водоотведение', price: '35.75 ₽', unit: 'за 1 м³', status: 'Активна'},
+                {id: 4, name: 'Техническое обслуживание', price: '250.00 ₽', unit: 'в месяц', status: 'Активна'}
+            ]
+        };
+
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = localStorage.getItem('waterUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showApp();
+            }
+
+            setupEventListeners();
+            
+            loadDemoData();
+        });
+
+        function setupEventListeners() {
+            // Вход в систему
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                login();
+            });
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    showPage(this.getAttribute('data-page'));
+                });
+            });
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const users = {
+                'admin': {name: 'Администратор', avatar: 'А'},
+                'operator': {name: 'Оператор', avatar: 'О'}
+            };
+
+            if ((username === 'admin' && password === 'admin123') || 
+                (username === 'operator' && password === 'operator123')) {
+                currentUser = {
+                    username: username,
+                    name: users[username].name,
+                    avatar: users[username].avatar
+                };
+
+                localStorage.setItem('waterUser', JSON.stringify(currentUser));
+                showApp();
+                alert('Вход выполнен успешно!');
+            } else {
+                alert('Неверный логин или пароль!');
+            }
+        }
+
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                localStorage.removeItem('waterUser');
+                currentUser = null;
+                document.getElementById('appContainer').classList.add('hidden');
+                document.getElementById('loginScreen').classList.remove('hidden');
+            }
+        }
+
+        function showApp() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appContainer').classList.remove('hidden');
+            
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userAvatar').textContent = currentUser.avatar;
+            }
+            
+            fillClientSelect();
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            document.getElementById(pageId + 'Page').classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-page') === pageId) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        function loadDemoData() {
+            const clientsTable = document.getElementById('clientsTable');
+            if (clientsTable) {
+                clientsTable.innerHTML = '';
+                demoData.clients.forEach(client => {
+                    const statusClass = client.status === 'Задолженность' ? 'status-danger' : 'status-success';
+                    const balanceColor = client.balance < 0 ? 'color: red;' : '';
+                    
+                    clientsTable.innerHTML += `
+                        <tr>
+                            <td>${client.name}</td>
+                            <td>${client.type}</td>
+                            <td>${client.phone}</td>
+                            <td style="${balanceColor}">${client.balance} ₽</td>
+                            <td><span class="status ${statusClass}">${client.status}</span></td>
+                            <td class="actions">
+                                <button class="btn btn-outline btn-sm" onclick="viewClient(${client.id})">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="editClient(${client.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            const paymentsTable = document.getElementById('paymentsTable');
+            if (paymentsTable) {
+                paymentsTable.innerHTML = '';
+                demoData.payments.forEach(payment => {
+                    paymentsTable.innerHTML += `
+                        <tr>
+                            <td>${payment.client}</td>
+                            <td>${payment.service}</td>
+                            <td>${payment.amount} ₽</td>
+                            <td>${payment.date}</td>
+                            <td><span class="status status-success">${payment.status}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+
+            const servicesTable = document.getElementById('servicesTable');
+            if (servicesTable) {
+                servicesTable.innerHTML = '';
+                demoData.services.forEach(service => {
+                    servicesTable.innerHTML += `
+                        <tr>
+                            <td>${service.name}</td>
+                            <td>${service.price}</td>
+                            <td>${service.unit}</td>
+                            <td><span class="status status-success">${service.status}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+
+            const recentPayments = document.getElementById('recentPayments');
+            if (recentPayments) {
+                recentPayments.innerHTML = '';
+                demoData.payments.slice(0, 3).forEach(payment => {
+                    recentPayments.innerHTML += `
+                        <tr>
+                            <td>${payment.client}</td>
+                            <td>${payment.amount} ₽</td>
+                            <td>${payment.date}</td>
+                            <td><span class="status status-success">${payment.status}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        function fillClientSelect() {
+            const select = document.getElementById('paymentClient');
+            if (select) {
+                select.innerHTML = '<option value="">Выберите клиента</option>';
+                demoData.clients.forEach(client => {
+                    const option = document.createElement('option');
+                    option.value = client.id;
+                    option.textContent = client.name;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showAddClient() {
+      
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientPhone').value = '';
+            document.getElementById('clientAddress').value = '';
+            showModal('addClientModal');
+        }
+
+        function saveClient() {
+            const name = document.getElementById('clientName').value;
+            const type = document.getElementById('clientType').value;
+            const phone = document.getElementById('clientPhone').value;
+            const address = document.getElementById('clientAddress').value;
+
+            if (!name) {
+                alert('Введите ФИО или название организации');
+                return;
+            }
+
+            const newClient = {
+                id: demoData.clients.length + 1,
+                name: name,
+                type: type,
+                phone: phone || '-',
+                balance: 0,
+                status: 'Активен'
+            };
+
+            demoData.clients.push(newClient);
+            hideModal('addClientModal');
+            loadDemoData();
+            fillClientSelect();
+            alert('Клиент добавлен успешно!');
+        }
+
+        function showAddPayment() {
+            showModal('addPaymentModal');
+        }
+
+        function savePayment() {
+            const clientId = document.getElementById('paymentClient').value;
+            const amount = document.getElementById('paymentAmount').value;
+            const period = document.getElementById('paymentPeriod').value;
+
+            if (!clientId || !amount) {
+                alert('Заполните все обязательные поля');
+                return;
+            }
+
+            const client = demoData.clients.find(c => c.id == clientId);
+            
+            if (!client) {
+                alert('Клиент не найден');
+                return;
+            }
+
+            const newPayment = {
+                id: demoData.payments.length + 1,
+                client: client.name,
+                service: 'Холодное водоснабжение',
+                amount: parseFloat(amount),
+                date: new Date().toISOString().split('T')[0],
+                status: 'Оплачен'
+            };
+
+            demoData.payments.unshift(newPayment);
+            
+            client.balance = (parseFloat(client.balance) + parseFloat(amount)).toFixed(2);
+
+            hideModal('addPaymentModal');
+            loadDemoData();
+            alert('Платеж добавлен успешно!');
+        }
+
+        function viewClient(clientId) {
+            const client = demoData.clients.find(c => c.id == clientId);
+            if (client) {
+                alert(`Информация о клиенте:\n\nФИО: ${client.name}\nТип: ${client.type}\nТелефон: ${client.phone}\nБаланс: ${client.balance} ₽\nСтатус: ${client.status}`);
+            }
+        }
+
+        function editClient(clientId) {
+            alert('Редактирование клиента - функция в разработке\nID клиента: ' + clientId);
+        }
+    </script>
+</body>
+</html>
