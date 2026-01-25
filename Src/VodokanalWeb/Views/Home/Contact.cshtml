@@ -1,0 +1,266 @@
+@{
+    ViewData["Title"] = "Контакты";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white py-4">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-telephone-fill fs-1 me-3"></i>
+                        <div>
+                            <h1 class="h3 mb-1">@ViewData["Title"]</h1>
+                            <p class="mb-0 opacity-75">@ViewData["Message"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                        <h2 class="display-6 fw-bold text-primary mb-3">
+                            <i class="bi bi-droplet me-2"></i>МКП «Водоканал»
+                        </h2>
+                        <p class="lead text-muted">
+                            Мы всегда готовы ответить на ваши вопросы и помочь с решением любых проблем
+                        </p>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-geo-alt-fill fs-2 text-primary"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Наш адрес</h4>
+                                    <p class="card-text">
+                                        <strong>г. Москва, ул. Водопроводная, д. 1</strong><br>
+                                        <span class="text-muted">Центральный офис</span>
+                                    </p>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-map me-1"></i> Показать на карте
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-telephone-fill fs-2 text-success"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Телефоны</h4>
+                                    <p class="card-text">
+                                        <strong>Единый call-центр:</strong><br>
+                                        <span class="fs-4 fw-bold text-primary">8-800-555-35-35</span><br>
+                                        <small class="text-muted">Бесплатно по России</small>
+                                    </p>
+                                    <p class="card-text mb-0">
+                                        <strong>Техническая поддержка:</strong><br>
+                                        <span class="fw-bold">+7 (495) 123-45-67</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-envelope-fill fs-2 text-warning"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Электронная почта</h4>
+                                    <p class="card-text">
+                                        <strong>Общие вопросы:</strong><br>
+                                        <a href="mailto:info@vodokanal.ru" class="text-decoration-none">
+                                            info@vodokanal.ru
+                                        </a>
+                                    </p>
+                                    <p class="card-text mb-0">
+                                        <strong>Техподдержка:</strong><br>
+                                        <a href="mailto:support@vodokanal.ru" class="text-decoration-none">
+                                            support@vodokanal.ru
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-clock-fill fs-2 text-info"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Режим работы</h4>
+                                    <p class="card-text">
+                                        <strong>Приемная:</strong><br>
+                                        Пн-Пт: 8:00 - 20:00<br>
+                                        Сб: 9:00 - 18:00<br>
+                                        Вс: выходной
+                                    </p>
+                                    <p class="card-text mb-0">
+                                        <strong>Аварийная служба:</strong><br>
+                                        <span class="text-danger fw-bold">Круглосуточно</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 bg-light mb-5">
+                        <div class="card-body p-4">
+                            <h3 class="h4 fw-bold mb-4">
+                                <i class="bi bi-people-fill me-2"></i>Ключевые сотрудники
+                            </h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h5 class="fw-bold mb-1">Иванов Петр Сергеевич</h5>
+                                            <p class="text-muted mb-1">Директор МКП «Водоканал»</p>
+                                            <p class="mb-0 small">
+                                                <i class="bi bi-telephone me-1"></i> +7 (495) 100-10-10<br>
+                                                <i class="bi bi-envelope me-1"></i> director@vodokanal.ru
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h5 class="fw-bold mb-1">Смирнова Ольга Ивановна</h5>
+                                            <p class="text-muted mb-1">Главный бухгалтер</p>
+                                            <p class="mb-0 small">
+                                                <i class="bi bi-telephone me-1"></i> +7 (495) 100-10-20<br>
+                                                <i class="bi bi-envelope me-1"></i> accountant@vodokanal.ru
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h5 class="fw-bold mb-1">Кузнецов Алексей Дмитриевич</h5>
+                                            <p class="text-muted mb-1">Начальник аварийной службы</p>
+                                            <p class="mb-0 small">
+                                                <i class="bi bi-telephone me-1"></i> +7 (495) 100-10-30<br>
+                                                <i class="bi bi-envelope me-1"></i> emergency@vodokanal.ru
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h5 class="fw-bold mb-1">Петрова Мария Викторовна</h5>
+                                            <p class="text-muted mb-1">Руководитель отдела клиентского сервиса</p>
+                                            <p class="mb-0 small">
+                                                <i class="bi bi-telephone me-1"></i> +7 (495) 100-10-40<br>
+                                                <i class="bi bi-envelope me-1"></i> service@vodokanal.ru
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="h5 fw-bold mb-0">
+                                <i class="bi bi-chat-dots me-2"></i>Форма обратной связи
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="contactForm">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="name" class="form-label">Ваше имя *</label>
+                                        <input type="text" class="form-control" id="name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Электронная почта *</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Тема обращения *</label>
+                                    <select class="form-select" id="subject" required>
+                                        <option value="">Выберите тему...</option>
+                                        <option value="billing">Вопросы по начислениям и оплате</option>
+                                        <option value="technical">Технические проблемы</option>
+                                        <option value="emergency">Аварийная ситуация</option>
+                                        <option value="suggestion">Предложения и жалобы</option>
+                                        <option value="other">Другое</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Сообщение *</label>
+                                    <textarea class="form-control" id="message" rows="4" required></textarea>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="agree" required>
+                                    <label class="form-check-label" for="agree">
+                                        Я согласен на обработку персональных данных
+                                    </label>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="reset" class="btn btn-outline-secondary me-md-2">
+                                        <i class="bi bi-x-circle me-1"></i> Очистить
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-send me-1"></i> Отправить сообщение
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.3s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#contactForm').submit(function (e) {
+                e.preventDefault();
+
+                alert('Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+                $(this).trigger('reset');
+            });
+        });
+    </script>
+}
