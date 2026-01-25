@@ -1,0 +1,84 @@
+@model VodokanalWeb.Models.Subscriber
+@{
+    ViewData["Title"] = "Детали абонента";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4><i class="bi bi-person-badge"></i> Детали абонента</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Номер счета:</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-primary">@Model.AccountNumber</span>
+                        </dd>
+
+                        <dt class="col-sm-4">ФИО / Название:</dt>
+                        <dd class="col-sm-8">@Model.FullName</dd>
+
+                        <dt class="col-sm-4">Тип абонента:</dt>
+                        <dd class="col-sm-8">
+                        </dd>
+
+                        <dt class="col-sm-4">Адрес:</dt>
+                        <dd class="col-sm-8">@Model.Address</dd>
+
+                        @if (!string.IsNullOrEmpty(Model.PersonalAccount))
+                        {
+                            <dt class="col-sm-4">Лицевой счет:</dt>
+                            <dd class="col-sm-8">@Model.PersonalAccount</dd>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.INN))
+                        {
+                            <dt class="col-sm-4">ИНН:</dt>
+                            <dd class="col-sm-8">@Model.INN</dd>
+                        }
+
+                        <dt class="col-sm-4">Телефон:</dt>
+                        <dd class="col-sm-8">@Model.Phone</dd>
+
+                        <dt class="col-sm-4">Email:</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+
+                        <dt class="col-sm-4">Дата регистрации:</dt>
+                        <dd class="col-sm-8">@Model.RegistrationDate.ToString("dd.MM.yyyy")</dd>
+
+                        <dt class="col-sm-4">Текущий баланс:</dt>
+                        <dd class="col-sm-8">
+                            <span class="fw-bold @(Model.Balance < 0 ? "text-danger" : Model.Balance > 0 ? "text-success" : "")">
+                                @Model.Balance.ToString("N2") ₽
+                            </span>
+                        </dd>
+
+                        @if (ViewBag.PendingCount > 0)
+                        {
+                            <dt class="col-sm-4">Ожидает оплаты:</dt>
+                            <dd class="col-sm-8">
+                                <span class="text-warning fw-bold">
+                                    @ViewBag.PendingCount счет(ов) на сумму @ViewBag.PendingAmount.ToString("N2") ₽
+                                </span>
+                            </dd>
+                        }
+                    </dl>
+
+                    <div class="mt-4">
+                        <a href="/Subscribers" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Назад к списку
+                        </a>
+                        <a href="/Subscribers/Edit/@Model.Id" class="btn btn-primary ms-2">
+                            <i class="bi bi-pencil"></i> Редактировать
+                        </a>
+                        <a href="/Accruals/Create/@Model.Id" class="btn btn-success ms-2">
+                            <i class="bi bi-plus-circle"></i> Создать начисление
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
