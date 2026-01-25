@@ -1,0 +1,118 @@
+@model VodokanalWeb.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Водоканал - Панель управления";
+}
+
+<div class="container mt-4">
+    <h1>Добро пожаловать в систему водоканала</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Последние платежи</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Номер</th>
+                                    <th>Дата</th>
+                                    <th>Абонент</th>
+                                    <th>Сумма</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.RecentPayments != null && Model.RecentPayments.Any())
+                                {
+                                    @foreach (var payment in Model.RecentPayments)
+                                    {
+                                        <tr>
+                                            <td>@payment.PaymentNumber</td>
+                                            <td>@payment.PaymentDate.ToString("dd.MM.yyyy")</td>
+                                            <td>@payment.SubscriberName</td>
+                                            <td>@payment.Amount.ToString("C2")</td>
+                                            <td>
+                                                <span class="badge @(payment.Status == "Подтвержден" ? "bg-success" : "bg-warning")">
+                                                    @payment.Status
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center">Нет данных о платежах</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Ближайшие сроки оплаты</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Номер начисления</th>
+                                    <th>Абонент</th>
+                                    <th>Срок оплаты</th>
+                                    <th>Сумма</th>
+                                    <th>Дней до оплаты</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.UpcomingPayments != null && Model.UpcomingPayments.Any())
+                                {
+                                    @foreach (var upcoming in Model.UpcomingPayments)
+                                    {
+                                        var rowClass = upcoming.DaysUntilDue <= 3 ? "table-danger" :
+                                        upcoming.DaysUntilDue <= 7 ? "table-warning" : "";
+
+                                        <tr class="@rowClass">
+                                            <td>@upcoming.AccrualNumber</td>
+                                            <td>@upcoming.SubscriberName</td>
+                                            <td>@upcoming.DueDate.ToString("dd.MM.yyyy")</td>
+                                            <td>@upcoming.Amount.ToString("C2")</td>
+                                            <td>
+                                                @if (upcoming.DaysUntilDue <= 0)
+                                                {
+                                                    <span class="badge bg-danger">Просрочено</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge @(upcoming.DaysUntilDue <= 3 ? "bg-danger" :
+                                                               upcoming.DaysUntilDue <= 7 ? "bg-warning" : "bg-info")">
+                                                        @upcoming.DaysUntilDue дней
+                                                    </span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center">Нет данных о ближайших платежах</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
