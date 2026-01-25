@@ -1,0 +1,200 @@
+@{
+    ViewData["Title"] = "О системе";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white py-4">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle-fill fs-1 me-3"></i>
+                        <div>
+                            <h1 class="h3 mb-1">@ViewData["Title"]</h1>
+                            <p class="mb-0 opacity-75">@ViewData["Message"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-5">
+                    <!-- Заголовок -->
+                    <div class="text-center mb-5">
+                        <h2 class="display-6 fw-bold text-primary mb-3">
+                            <i class="bi bi-droplet"></i> Система учета оплаты услуг водоснабжения
+                        </h2>
+                        <p class="lead text-muted">
+                            Автоматизированная информационная система для МКП «Водоканал»
+                        </p>
+                    </div>
+
+                    <!-- Описание системы -->
+                    <div class="row mb-5">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-people-fill fs-2 text-primary"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Управление абонентами</h4>
+                                    <p class="card-text text-muted">
+                                        Полный учет физических и юридических лиц, подключенных к системе водоснабжения.
+                                        Ведение базы данных с контактной информацией и историей взаимодействия.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-calculator fs-2 text-success"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Начисление платежей</h4>
+                                    <p class="card-text text-muted">
+                                        Автоматическое формирование счетов на оплату услуг водоснабжения
+                                        на основе показаний счетчиков и установленных тарифов.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-cash-coin fs-2 text-warning"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Учет платежей</h4>
+                                    <p class="card-text text-muted">
+                                        Регистрация и обработка платежей, автоматическое зачисление средств
+                                        на лицевые счета абонентов, формирование квитанций и отчетов.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body text-center p-4">
+                                    <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                                        <i class="bi bi-graph-up fs-2 text-info"></i>
+                                    </div>
+                                    <h4 class="card-title h5 fw-bold mb-3">Аналитика и отчеты</h4>
+                                    <p class="card-text text-muted">
+                                        Детальная аналитика потребления услуг, формирование финансовых отчетов,
+                                        мониторинг задолженностей и прогнозирование нагрузок.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Технические характеристики -->
+                    <div class="card border-0 bg-light mb-5">
+                        <div class="card-body p-4">
+                            <h3 class="h4 fw-bold mb-4">
+                                <i class="bi bi-gear me-2"></i>Технические характеристики
+                            </h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <strong>Платформа:</strong> ASP.NET Core 8.0
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <strong>База данных:</strong> Microsoft SQL Server
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <strong>Интерфейс:</strong> Bootstrap 5, Responsive Design
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <strong>Безопасность:</strong> Сессионная аутентификация
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <strong>Архитектура:</strong> MVC (Model-View-Controller)
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            <strong>Мониторинг:</strong> Встроенная система логирования
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- История версий -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="h5 fw-bold mb-0">
+                                <i class="bi bi-clock-history me-2"></i>История версий
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item mb-4">
+                                    <div class="timeline-marker bg-primary"></div>
+                                    <div class="timeline-content">
+                                        <h5 class="fw-bold mb-1">Версия 1.0.0</h5>
+                                        <p class="text-muted mb-2">@DateTime.Now.ToString("dd MMMM yyyy")</p>
+                                        <p class="mb-0">Первоначальный релиз системы. Реализованы основные функции учета абонентов, начислений и платежей.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">
+                                    <i class="bi bi-c-circle me-1"></i> @DateTime.Now.Year МКП «Водоканал»
+                                </span>
+                                <span class="badge bg-primary">Текущая версия: 1.0.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.7rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e9ecef;
+        }
+
+    .timeline-item {
+        position: relative;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: -2rem;
+        top: 0.5rem;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 0 3px #e9ecef;
+    }
+
+    .timeline-content {
+        padding-left: 1rem;
+    }
+</style>
